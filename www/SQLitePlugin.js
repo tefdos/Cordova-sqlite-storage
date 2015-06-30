@@ -516,12 +516,14 @@
         openargs = {
           name: first
         };
-        if (args.length >= 5) {
-          okcb = args[4];
-          if (args.length > 5) {
-            errorcb = args[5];
+        if (args.length >= 6) {
+          okcb = args[5];
+          if (args.length > 6) {
+            errorcb = args[6];
           }
         }
+
+
       } else {
         openargs = first;
         if (args.length >= 2) {
@@ -531,6 +533,7 @@
           }
         }
       }
+
       dblocation = !!openargs.location ? dblocations[openargs.location] : null;
       openargs.dblocation = dblocation || dblocations[0];
       if (!!openargs.createFromLocation && openargs.createFromLocation === 1) {
@@ -542,8 +545,9 @@
       if (!!openargs.androidLockWorkaround && openargs.androidLockWorkaround === 1) {
         openargs.androidBugWorkaround = 1;
       }
-      return new SQLitePlugin(openargs, okcb, errorcb);
+      return new SQLitePlugin(openargs, openargs.okcb, openargs.errorcb);
     }),
+    
     deleteDb: function(first, success, error) {
       var args, dblocation;
       args = {};
